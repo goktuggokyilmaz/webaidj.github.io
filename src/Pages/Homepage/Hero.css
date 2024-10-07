@@ -41,7 +41,7 @@
   white-space: nowrap; /* Prevent line break */
   border-right: 3px solid rgba(255, 255, 255, 0.75); /* Blinking cursor */
   width: fit-content; /* Set width to fit the content exactly */
-  animation: typing 3.5s steps(33, end) 1, blink-caret 0.75s step-end infinite; /* Typing animation */
+  animation: typing 3.5s steps(33, end) 1, blink-caret 0.75s step-end infinite; /* Typing animation test*/
 }
 
 /* Typing Effect */

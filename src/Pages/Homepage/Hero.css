@@ -27,7 +27,6 @@
   z-index: 1; /* Ensure it stays above the background */
   padding-left: 10%;
   color: white;
-  max-width: 500px; /* Limit width of text area */
 }
 
 /* Main heading (slogan) */

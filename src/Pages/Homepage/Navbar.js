@@ -38,8 +38,9 @@ const Navbar = () => {
         </div>
 
         {/* Desktop Menu */}
-        <div className="aboutusbutton">About Us</div>
-        <div className="contactbutton">Contact</div>
+        <div>        <a href="#about-us" className="aboutusbutton">About Us</a>
+        <a href="#contact" className="contactbutton">Contact</a></div>
+
         <div className="signinbutton" onClick={handleSign}>Sign In</div>
       </div>
     </div>

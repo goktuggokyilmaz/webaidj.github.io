@@ -1,0 +1,114 @@
+/* Style for the entire Hero section */
+.Herodiv {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
+/* Background Image */
+.Crowdmusic1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Crop and cover the screen area */
+  z-index: -1; /* Ensure it's behind the content */
+  filter: brightness(0.4); /* Optional: Darken the image slightly for better text visibility */
+}
+
+/* Content on the left side */
+.HeroContent {
+  position: relative;
+  z-index: 1; /* Ensure it stays above the background */
+  padding-left: 10%;
+  color: white;
+  max-width: 500px; /* Limit width of text area */
+}
+
+/* Main heading (slogan) */
+/* Typing Animation for .HeroT1 */
+.HeroT1 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  line-height: 1.2;
+  overflow: hidden; /* Hide overflow for typing effect */
+  white-space: nowrap; /* Prevent line break */
+  border-right: 3px solid rgba(255, 255, 255, 0.75); /* Blinking cursor */
+  width: fit-content; /* Set width to fit the content exactly */
+  animation: typing 3.5s steps(33, end) 1, blink-caret 0.75s step-end infinite; /* Typing animation */
+}
+
+/* Typing Effect */
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; } /* This will now animate to full width */
+}
+
+/* Blinking Cursor Effect */
+@keyframes blink-caret {
+  from { border-right-color: rgba(255, 255, 255, 0.75); }
+  to { border-right-color: transparent; }
+}
+
+/* Subheading (AI DJ text) */
+.HeroT2 {
+  font-size: 5rem;
+  font-weight: bold;
+  margin-bottom: 40px;
+  text-transform: uppercase;
+  color: #12c2e9; /* Accent color */
+}
+
+/* Modern Button with Gradient and Glow Effect */
+.Discover-button {
+  padding: 15px 40px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(90deg, #12c2e9, #c471ed, #f64f59); /* Gradient background */
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0px 0px 20px rgba(196, 113, 237, 0.6); /* Initial glow to match gradient */
+  opacity: 0.8;
+}
+
+/* Hover effects */
+.Discover-button:hover {
+  transform: translateY(-5px); /* Lift effect */
+  box-shadow: 0px 0px 30px rgba(196, 113, 237, 0.9); /* Stronger glow on hover */
+}
+
+/* Glow Effect */
+.Discover-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120%;
+  height: 120%;
+  background-color: rgba(196, 113, 237, 0.5); /* Matching glow color */
+  filter: blur(30px); /* Blurred glow effect */
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  border-radius: 50px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Hover pulse effect */
+.Discover-button:hover::before {
+  width: 140%;
+  height: 140%;
+  background-color: rgba(196, 113, 237, 0.8); /* Stronger glow on hover */
+  filter: blur(40px); /* Bigger blur on hover */
+}

@@ -1,0 +1,63 @@
+/* Our Team Container */
+.OurTeamContainer {
+    padding: 50px;
+    color: white; /* Text color */
+    text-align: left; /* Center align text */
+  }
+  
+  /* Title */
+  .OurTeamTitle {
+    font-size: 3rem; /* Responsive font size */
+    color: #12c2e9;
+    margin-bottom: 30px; /* Space below title */
+    padding-left: 10%;
+  }
+  
+  /* Team Members Layout */
+  .TeamMembers {
+    display: flex;
+    justify-content: space-around; /* Space between members */
+    flex-wrap: wrap; /* Wrap members on smaller screens */
+  }
+  
+  /* Individual Team Member */
+  .TeamMember {
+    background-color: #2a2d30; /* Member card background */
+    border-radius: 15px; /* Rounded corners */
+    padding: 20px;
+    margin: 20px;
+    width: 170px; /* Fixed width for cards */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Shadow effect */
+    transition: transform 0.3s ease; /* Smooth scaling effect */
+  }
+  
+  /* Scale effect on hover */
+  .TeamMember:hover {
+    transform: scale(1.05); /* Slightly enlarge the card */
+  }
+  
+  /* Member Image */
+  .MemberImage {
+    width: 100%; /* Responsive image */
+    border-radius: 15px; /* Match card corners */
+  }
+  
+  /* Member Name */
+  .MemberName {
+    font-size: 1.5rem; /* Responsive font size */
+    margin: 10px 0; /* Space above and below */
+  }
+  
+  /* LinkedIn Link */
+  .LinkedInLink {
+    color: #13DCEE; /* LinkedIn color */
+    text-decoration: none; /* Remove underline */
+    font-weight: bold; /* Bold text */
+    transition: color 0.3s; /* Smooth color transition */
+  }
+  
+  /* Change color on hover */
+  .LinkedInLink:hover {
+    color: #0a58b6; /* Darker blue on hover */
+  }
+  

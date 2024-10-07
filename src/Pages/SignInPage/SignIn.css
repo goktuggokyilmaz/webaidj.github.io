@@ -1,0 +1,120 @@
+/* SignIn.css */
+.signin-body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2); /* Gradient background */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signin-container {
+    position: relative; /* Maintain relative positioning */
+    background: #fff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    text-align: center;
+    min-height: 370px;
+    transition: transform 0.6s ease; /* Smooth rotation transition */
+}
+
+/* Add rotation when the rotate class is active */
+.rotate {
+    transform: rotateY(90deg); /* Flip animation */
+}
+
+.sign-near {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.signin-logo {
+    width: 48px;
+    height: 48px;
+    margin-right: 10px;
+}
+
+.signin-title {
+    font-size: 32px;
+    color: #333;
+}
+
+.signin-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.signin-input {
+    padding: 15px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.signin-input:focus {
+    border-color: #667eea;
+    outline: none;
+}
+
+.signin-button {
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #667eea;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.signin-button:hover {
+    background-color: #5b67d9;
+    transform: translateY(-2px);
+}
+
+.signin-footer {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #777;
+}
+
+.signin-footer a {
+    color: #667eea;
+    text-decoration: none;
+}
+
+.signin-footer a:hover {
+    text-decoration: underline;
+}
+
+.toggle-button {
+    background: none;
+    border: none;
+    color: #667eea;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/* Updated close button */
+.close-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 32px;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-button:hover {
+    color: #764ba2;
+}

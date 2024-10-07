@@ -1,0 +1,49 @@
+/* About Us Container */
+.AboutUsContainer {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Full viewport height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: white; /* Text color */
+  }
+  
+  /* Gradient Overlay */
+  .GradientOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg,rgba(5,0,20,255) 100%, black 0% );
+    z-index: 1; /* Ensure it's behind the content */
+  }
+  
+  /* Content Section */
+  .Content {
+    position: relative;
+    z-index: 2; /* Bring it above the gradient */
+    text-align: center; /* Center text */
+    padding: 20px;
+    max-width: 800px; /* Limit width of the text area */
+  }
+  
+  /* Title */
+  .AboutUsTitle {
+    font-size: 4rem; /* Responsive font size */
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-transform: uppercase; /* Make it uppercase */
+    letter-spacing: 2px; /* Spacing between letters */
+  }
+  
+  /* Text */
+  .AboutUsText {
+    font-size: 1.5rem; /* Responsive font size */
+    line-height: 1.6; /* Line height for readability */
+    margin-bottom: 20px; /* Spacing between paragraphs */
+    opacity: 0.9; /* Slightly transparent text */
+  }
+  

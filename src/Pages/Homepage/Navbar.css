@@ -1,0 +1,201 @@
+/* Styles for both desktop and mobile */
+.navbardiv {
+    width: 100%;
+    height: 64px;
+    position: relative;
+    background: #040011;
+  }
+  
+  .navbar {
+    width: 100%;
+    height: 64px;
+    position: absolute;
+    background: #040011;
+  }
+  
+  .djai2 {
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    left: 133px;
+    top: 10px;
+  }
+  
+  .ai-dj {
+    width: auto;
+    height: 46px;
+    position: absolute;
+    left: 190px;
+    top: 10px;
+    color: #13dcee;
+    font-size: 36px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    
+    /* Modern enhancements */
+    background: linear-gradient(90deg, #12c2e9, #c471ed, #f64f59); /* Gradient effect */
+    -webkit-background-clip: text; /* Clip gradient to text */
+    -webkit-text-fill-color: transparent; /* Make the text transparent to show the gradient */
+    
+    text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    letter-spacing: 1.5px; /* Spacing for cleaner look */
+    transition: transform 0.3s ease, text-shadow 0.3s ease; /* Smooth transitions */
+    cursor: pointer;
+    
+  }
+  
+  .ai-dj:hover,.djai2:hover {
+    transform: scale(1.05); /* Slight zoom effect on hover */
+    text-shadow: 4px 8px 10px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+  }
+  
+  
+  /* Desktop buttons */
+  .contactbutton,
+  .aboutusbutton {
+    position: absolute;
+    color: white;
+    font-size: 18px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  
+  .signinbutton {
+    position: absolute;
+    right: 100px;
+    top: 10px;
+    padding: 12px 25px;
+    background: linear-gradient(135deg, #12c2e9, #c471ed, #f64f59); /* Gradient */
+    color: white;
+    font-size: 18px;
+    font-family: 'Poppins', sans-serif; /* Modern font */
+    font-weight: 500;
+    border: none; /* No border */
+    border-radius: 30px; /* Rounded corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); /* Subtle shadow */
+    cursor: pointer;
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+  }
+  
+  /* Hover effect for a modern interactive feel */
+  .signinbutton:hover {
+    background: linear-gradient(135deg, #f64f59, #c471ed, #12c2e9); /* Reverse gradient on hover */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25); /* Stronger shadow on hover */
+    transform: translateY(-3px); /* Slight lift effect */
+  }
+
+  .aboutusbutton {
+    right: 350px;
+    top: 22px;
+  }
+  
+  .contactbutton {
+    right: 250px;
+    top: 22px;
+  }
+
+  .contactbutton:hover,
+  .aboutusbutton:hover {
+    transform: scale(1.05); /* Slight zoom effect on hover */
+    text-shadow: 4px 8px 10px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+  }
+  
+  
+  /* Hamburger menu button */
+  .menu-button {
+    width: 44px;
+    height: 44px;
+    background:  #f64f59; 
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    color: white;
+    font-size: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 5px;
+  }
+
+  .menu-button:hover {
+    background: linear-gradient(135deg, #f64f59, #c471ed, #12c2e9); /* Reverse gradient on hover */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25); /* Stronger shadow on hover */
+    transform: translateY(-3px); /* Slight lift effect */
+  }
+  
+  /* Dropdown menu for mobile */
+  .mobile-menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 64px;
+    padding-top: 5px;
+    padding-bottom: 15px;
+    left: 0;
+    width: 100vw;
+    background-color: #040011;
+    opacity: 0.8;
+    z-index: 2; /* Ensure it stays above the background */
+    align-items: center;
+
+  }
+  
+  .mobile-menu a {
+    padding: 10px 20px;
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    border-bottom: 1px solid #333;
+    
+  }
+
+  .mobile-menu a:hover {
+    background: linear-gradient(90deg, #12c2e9, #c471ed, #f64f59); /* Gradient effect */
+    -webkit-background-clip: text; /* Clip gradient to text */
+    -webkit-text-fill-color: transparent; /* Make the text transparent to show the gradient */
+    opacity: 1;
+  }
+
+  .mobile-menu.active {
+    display: flex;
+  }
+  
+  /* Responsive for smaller screens */
+  @media (max-width: 768px) {
+    .navbar {
+      height: 70px;
+      position: relative;
+    }
+  
+    .djai2 {
+      left: 20px;
+      top: 10px;
+    }
+  
+    .ai-dj {
+      left: 80px;
+      top: 12px;
+      font-size: 36px;
+    }
+  
+    /* Hide the desktop buttons for mobile */
+    .contactbutton,
+    .aboutusbutton,
+    .ourteambutton,
+    .faqbutton,
+    .reviewsbutton {
+      display: none;
+    }
+  
+    /* Mobile menu items */
+    .mobile-menu a {
+      padding: 15px;
+      font-size: 18px;
+    }
+  }
+  

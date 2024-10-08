@@ -17,7 +17,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(180deg,rgba(5,0,20,255) 100%, black 0% );
+    background: linear-gradient(180deg, rgba(103,51,49,255) 0%, black 20%);
     z-index: 1; /* Ensure it's behind the content */
   }
   
@@ -25,7 +25,7 @@
   .Content {
     position: relative;
     z-index: 2; /* Bring it above the gradient */
-    text-align: center; /* Center text */
+    text-align: justify; /* Center text */
     padding: 20px;
     max-width: 800px; /* Limit width of the text area */
   }
@@ -37,6 +37,7 @@
     margin-bottom: 20px;
     text-transform: uppercase; /* Make it uppercase */
     letter-spacing: 2px; /* Spacing between letters */
+    color: #12c2e9;
   }
   
   /* Text */

@@ -17,7 +17,7 @@ const teamMembers = [
   {
     name: 'Göktuğ',
     surname: 'Gökyılmaz',
-    image: 'https://media.licdn.com/dms/image/v2/D4D03AQFSpnt0Mgc0gA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1679078458753?e=1733961600&v=beta&t=pbtylKIEjgTkAsbs6tCghX_FiIgtl8WZ6PnuFreBcb8', // Replace with actual image URL
+    image: 'https://media.licdn.com/dms/image/v2/D4D03AQFx-UcdTHFtjQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1728332110255?e=1733961600&v=beta&t=_1BVO_CV5VSPBf0U8ij1nE3d50cRlWF-YMc3d5cGdg0', // Replace with actual image URL
     linkedin: 'https://www.linkedin.com/in/goktug-gokyilmaz/'
   },
   {

@@ -9,7 +9,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 const App = () => {
   return (
-    <Router>
+    <Router basename="/webaidj.github.io">
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/signin" element={<SignInPage />} />

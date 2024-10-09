@@ -1,0 +1,100 @@
+/* Main container for the playlist panel */
+.playlist-panel {
+    width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #1e1e1e;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    color: white;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  /* Title */
+  .playlist-panel h2 {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #12c2e9;
+  }
+  
+  /* Playlist Form */
+  .playlist-form {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .playlist-input {
+    width: 50%;
+    padding: 10px;
+    border: 2px solid #12c2e9;
+    border-radius: 5px;
+    background-color: #2a2d30;
+    color: white;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  .playlist-input:focus {
+    border-color: #c471ed;
+  }
+  
+  /* Create Button */
+  .create-button {
+    width: 20%;
+    padding: 10px;
+    margin-left: 20px;
+    background-color: #12c2e9;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .create-button:hover {
+    background-color: #f64f59;
+  }
+  
+  /* Playlist List */
+  .playlist-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .playlist-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #2a2d30;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .playlist-item:hover {
+    background-color: #3a3d40;
+  }
+  
+  .playlist-item span {
+    font-size: 1rem;
+  }
+  
+  /* Delete Button */
+  .delete-button {
+    background-color: #f64f59;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .delete-button:hover {
+    background-color: #c471ed;
+  }
+  

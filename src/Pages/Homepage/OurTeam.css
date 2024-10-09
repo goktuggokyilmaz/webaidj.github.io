@@ -1,6 +1,5 @@
 /* Our Team Container */
 .OurTeamContainer {
-    padding: 50px;
     color: white; /* Text color */
     text-align: left; /* Center align text */
   }
@@ -11,6 +10,7 @@
     color: #12c2e9;
     margin-bottom: 30px; /* Space below title */
     padding-left: 10%;
+    padding-top: 10%;
   }
   
   /* Team Members Layout */
@@ -28,6 +28,7 @@
     border-radius: 15px; /* Rounded corners */
     padding: 20px;
     margin-right: 4px;
+    margin-top: 10px;
     width: 170px; /* Fixed width for cards */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Shadow effect */
     transition: transform 0.3s ease; /* Smooth scaling effect */

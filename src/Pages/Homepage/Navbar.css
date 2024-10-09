@@ -2,14 +2,16 @@
 .navbardiv {
     width: 100%;
     height: 64px;
-    position: relative;
+    position: sticky;
+    top:0;
     background: #040011;
+    z-index: 1000; /* Ensures it stays on top of other content */
   }
   
   .navbar {
     width: 100%;
     height: 64px;
-    position: absolute;
+    position: sticky;
     background: #040011;
   }
   

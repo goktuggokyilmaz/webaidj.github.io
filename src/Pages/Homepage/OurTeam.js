@@ -1,5 +1,6 @@
 import React from 'react';
 import './OurTeam.css'; // Import the CSS file
+import SectionDivider from './SectionDivider';
 
 const teamMembers = [
   {
@@ -41,6 +42,7 @@ const OurTeam = () => {
 
   return (
     <section id="our-team">
+      <SectionDivider></SectionDivider>
       <div className="OurTeamContainer">
         <h1 className="OurTeamTitle">Meet Our Team</h1>
         <div className="TeamMembers">

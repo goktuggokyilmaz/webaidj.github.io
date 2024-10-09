@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/webaidj.github.io/static/css/main.62b19b25.css",
+    "main.js": "/webaidj.github.io/static/js/main.7b776581.js",
+    "static/js/453.fa3f6ff6.chunk.js": "/webaidj.github.io/static/js/453.fa3f6ff6.chunk.js",
+    "static/media/Crowdmusic.jpeg": "/webaidj.github.io/static/media/Crowdmusic.48893878ce9ed115da75.jpeg",
+    "static/media/DJAILogo.png": "/webaidj.github.io/static/media/DJAILogo.eee413b44c2f6d8aaef4.png",
+    "index.html": "/webaidj.github.io/index.html",
+    "main.62b19b25.css.map": "/webaidj.github.io/static/css/main.62b19b25.css.map",
+    "main.7b776581.js.map": "/webaidj.github.io/static/js/main.7b776581.js.map",
+    "453.fa3f6ff6.chunk.js.map": "/webaidj.github.io/static/js/453.fa3f6ff6.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.62b19b25.css",
+    "static/js/main.7b776581.js"
+  ]
+}

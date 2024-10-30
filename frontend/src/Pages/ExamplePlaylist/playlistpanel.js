@@ -1,9 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './playlistpanel.css'; // Import the CSS file
 
 const PlaylistPanel = () => {
   const [playlistName, setPlaylistName] = useState(''); // State to store the input
   const [playlists, setPlaylists] = useState([]); // State to store the list of playlists
+
+  const [trackData, setTrackData] = useState(null);
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
+  useEffect(() => {
+    axios.get(`${backendUrl}/api/track-analysis`)
+      .then(response => {
+        setTrackData(response.data);
+      })
+      .catch(error => {
+        console.error("Error fetching track analysis:", error);
+      });
+  }, [backendUrl]);
 
   // Handle the change in the input field
   const handleInputChange = (e) => {
@@ -33,6 +47,21 @@ const PlaylistPanel = () => {
   return (
     <div className="playlist-panel">
       <h2>Create a Playlist</h2>
+
+<h2>Total Tracks Analyzed: {trackData ? trackData.total_tracks_analyzed : 'Loading...'}</h2>
+      {trackData && trackData.tracks.map(track => (
+        <div key={track.track_id}>
+          <h3>Track ID: {track.track_id}</h3>
+          {track.features.map((feature, index) => (
+            <div key={index}>
+              <p>Danceability: {feature.danceability}</p>
+              <p>Energy: {feature.energy}</p>
+              <p>Loudness: {feature.loudness}</p>
+              {/* Add more features as needed */}
+            </div>
+          ))}
+        </div>
+      ))}
 
       {/* Playlist Creation Form */}
       <form className="playlist-form" onSubmit={handleFormSubmit}>

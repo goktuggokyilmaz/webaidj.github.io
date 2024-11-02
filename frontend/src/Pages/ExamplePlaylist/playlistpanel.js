@@ -5,11 +5,20 @@ import './playlistpanel.css'; // Import the CSS file
 const PlaylistPanel = () => {
   const [playlistName, setPlaylistName] = useState(''); // State to store the input
   const [playlists, setPlaylists] = useState([]); // State to store the list of playlists
-
-  const [trackData, setTrackData] = useState(null);
+  const [trackData, setTrackData] = useState(null); // State to store track data
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
+    // Fetch existing playlists
+    axios.get(`${backendUrl}/api/playlists`)
+      .then(response => {
+        setPlaylists(response.data);
+      })
+      .catch(error => {
+        console.error("Error fetching playlists:", error);
+      });
+
+    // Fetch track analysis
     axios.get(`${backendUrl}/api/track-analysis`)
       .then(response => {
         setTrackData(response.data);
@@ -33,35 +42,32 @@ const PlaylistPanel = () => {
       return;
     }
 
-    // Add new playlist to the list
-    setPlaylists([...playlists, playlistName]);
-    setPlaylistName(''); // Clear the input after adding
+    // Send new playlist to the backend
+    axios.post(`${backendUrl}/api/playlists`, { name: playlistName })
+      .then(response => {
+        setPlaylists([...playlists, playlistName]); // Update local state
+        setPlaylistName(''); // Clear the input after adding
+      })
+      .catch(error => {
+        console.error("Error adding playlist:", error);
+      });
   };
 
   // Function to delete a playlist
   const handleDeletePlaylist = (indexToDelete) => {
-    const updatedPlaylists = playlists.filter((_, index) => index !== indexToDelete);
-    setPlaylists(updatedPlaylists);
+    axios.delete(`${backendUrl}/api/playlists/${indexToDelete}`)
+      .then(() => {
+        const updatedPlaylists = playlists.filter((_, index) => index !== indexToDelete);
+        setPlaylists(updatedPlaylists);
+      })
+      .catch(error => {
+        console.error("Error deleting playlist:", error);
+      });
   };
 
   return (
     <div className="playlist-panel">
       <h2>Create a Playlist</h2>
-
-<h2>Total Tracks Analyzed: {trackData ? trackData.total_tracks_analyzed : 'Loading...'}</h2>
-      {trackData && trackData.tracks.map(track => (
-        <div key={track.track_id}>
-          <h3>Track ID: {track.track_id}</h3>
-          {track.features.map((feature, index) => (
-            <div key={index}>
-              <p>Danceability: {feature.danceability}</p>
-              <p>Energy: {feature.energy}</p>
-              <p>Loudness: {feature.loudness}</p>
-              {/* Add more features as needed */}
-            </div>
-          ))}
-        </div>
-      ))}
 
       {/* Playlist Creation Form */}
       <form className="playlist-form" onSubmit={handleFormSubmit}>
@@ -89,6 +95,7 @@ const PlaylistPanel = () => {
           </li>
         ))}
       </ul>
+      
     </div>
   );
 };

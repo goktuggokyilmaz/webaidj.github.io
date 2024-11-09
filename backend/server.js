@@ -75,6 +75,31 @@ app.delete('/api/playlists/:index', (req, res) => {
     res.status(204).send(); // No content
 });
 
+app.post('/signup', async (req, res) => {
+    const { email, password } = req.body;
+  
+    try {
+      // Create user in Firebase Authentication
+      const userRecord = await admin.auth().createUser({
+        email: email,
+        password: password,
+      });
+  
+      // Optional: Store additional user data in Firestore
+      const db = admin.firestore();
+      await db.collection('users').doc(userRecord.uid).set({
+        email: email,
+        createdAt: new Date(),
+        // You can add more fields here if needed, like displayName, etc.
+      });
+  
+      res.status(201).json({ message: 'User created successfully', userId: userRecord.uid });
+    } catch (error) {
+      console.error('Error creating user:', error);
+      res.status(400).json({ error: error.message });
+    }
+  });
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

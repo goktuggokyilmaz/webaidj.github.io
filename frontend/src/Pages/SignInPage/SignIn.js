@@ -22,6 +22,33 @@ const SignIn = () => {
     navigate("/"); // Redirect to the homepage when the close button is clicked
   };
 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const signUp = async (e) => {
+    e.preventDefault(); // Prevents page refresh on form submission
+
+    try {
+      const response = await fetch('http://localhost:5000/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        console.log('User signed up successfully:', data);
+        // Handle successful sign-up (e.g., redirect or show a success message)
+      } else {
+        const errorData = await response.json();
+        console.error('Sign-up error:', errorData);
+        // Handle error (e.g., show error message)
+      }
+    } catch (error) {
+      console.error('Network error:', error);
+    }
+  };
+
   return (
     <div className='signin-body'>
       <div className={`signin-container ${rotate ? 'rotate' : ''}`}>
@@ -40,9 +67,19 @@ const SignIn = () => {
             <button type="submit" className="signin-button">Sign In</button>
           </form>
         ) : (
-          <form className="signin-form">
-            <input type="email" placeholder="Email" required className="signin-input" />
-            <input type="password" placeholder="Password" required className="signin-input" />
+          <form className="signin-form" onSubmit={signUp}>
+            <input 
+                type="email" 
+                placeholder="Email" 
+                required className="signin-input" 
+                onChange={(e) => setEmail(e.target.value)} 
+                />
+            <input 
+                type="password" 
+                placeholder="Password" 
+                required className="signin-input" 
+                onChange={(e) => setPassword(e.target.value)} 
+                />
             <input type="password" placeholder="Confirm Password" required className="signin-input" />
             <button type="submit" className="signin-button">Sign Up</button>
           </form>

@@ -17,6 +17,9 @@ const Hero = () => {
         <button onClick={handleDiscover} className="Discover-button"> Discover Now</button>
       </div>
       <img className="Crowdmusic1" src={crowdimagepath} alt="Background" />
+
+      
+    
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './playlistpanel.css'; // Import the CSS file
 
 const PlaylistPanel = () => {
@@ -29,6 +29,22 @@ const PlaylistPanel = () => {
     const updatedPlaylists = playlists.filter((_, index) => index !== indexToDelete);
     setPlaylists(updatedPlaylists);
   };
+
+  // Example using fetch in a React component
+  const fetchData = async () => {
+    try {
+        const response = await fetch("http://localhost:8000/api/data"); // FastAPI URL
+        const data = await response.json();
+        console.log(data);
+    } catch (error) {
+        console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
 
   return (
     <div className="playlist-panel">

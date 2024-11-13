@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PlaylistPanel from './playlistpanel.js'; // Component for creating a playlist
+import CreateTransition from './transition.js'
 import { useNavigate } from 'react-router-dom';
 import './adminpanel.css';
 import your_logo_path from "../../DJAILogo.png";
@@ -8,6 +9,7 @@ import { LuLogOut } from "react-icons/lu";
 import { MdLibraryMusic } from "react-icons/md";
 import { RiRobot2Fill } from "react-icons/ri";
 import { AiOutlinePlus } from "react-icons/ai";
+import { PiMusicNotesPlusFill } from "react-icons/pi";
 
 const AdminPanel = () => {
   const [selectedContent, setSelectedContent] = useState('playlists');
@@ -68,6 +70,7 @@ const AdminPanel = () => {
               )}
             </li>
             <li onClick={() => handleContentChange('discover')}><RiRobot2Fill /> Discover</li>
+            <li onClick={() => handleContentChange('create-transition')}><PiMusicNotesPlusFill /> Transition</li>
           </ul>
           <ul className='sidebar-down-menu'>
             <li className="admin-sidebar-logout" onClick={handleLogOut}>
@@ -87,6 +90,7 @@ const AdminPanel = () => {
             </div>
           )}
           {selectedContent === 'discover' && <h2>Discover Section</h2>}
+          {selectedContent === 'create-transition' && <CreateTransition />}
         </div>
       </div>
     </div>

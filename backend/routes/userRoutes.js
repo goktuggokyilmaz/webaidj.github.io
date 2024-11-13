@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken'); // Add JWT for creating tokens
 const User = require('../models/User'); // Import User model
-const authenticateJWT = require('../middleware/auth'); // Your JWT authentication middleware
+const authenticateJWT = require('../middleware/authenticate'); // Your JWT authentication middleware
 
 // Signup Route
 router.post('/signup', async (req, res) => {
@@ -53,7 +53,7 @@ router.post('/signin', async (req, res) => {
 });
 
 // Get user details for the authenticated user
-router.get('/api/user', authenticateJWT, async (req, res) => {
+router.get('/user', authenticateJWT, async (req, res) => {
   const userId = req.userId;  // Extract userId from the JWT token (set by the middleware)
 
   try {

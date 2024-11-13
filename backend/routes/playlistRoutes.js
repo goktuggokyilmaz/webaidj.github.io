@@ -1,14 +1,21 @@
 const express = require('express');
 const Playlist = require('../models/Playlist');
-const authenticateJWT = require('../middleware/auth');
+const authenticate = require('../middleware/authenticate');
 const router = express.Router();
 
-// Get Playlists for Authenticated User
-router.get('/api/playlists', authenticateJWT, async (req, res) => {
-  const userId = req.userId; // Get userId from the JWT token (set in middleware)
+// Get the playlists for the authenticated user
+router.get('/playlists', authenticate, async (req, res) => {
+  const userId = req.userId;  // Extract userId from the JWT token (set by the middleware)
 
   try {
-    const playlists = await Playlist.find({ userId }); // Find playlists for the specific user
+    // Find playlists by the userId
+    const playlists = await Playlist.find({ userId });
+
+    if (playlists.length === 0) {
+      return res.status(404).json({ error: 'No playlists found for this user' });
+    }
+
+    // Send the playlists as a response
     res.json(playlists);
   } catch (error) {
     console.error('Error fetching playlists:', error);
@@ -16,42 +23,35 @@ router.get('/api/playlists', authenticateJWT, async (req, res) => {
   }
 });
 
-// Add Playlist for Authenticated User
-router.post('/api/playlists', authenticateJWT, async (req, res) => {
-  const userId = req.userId; // Get userId from the JWT token
+// Create a new playlist
+router.post('/playlists', authenticate, async (req, res) => {
   const { name } = req.body;
 
-  if (!name || name.trim() === '') {
+  if (!name) {
     return res.status(400).json({ error: 'Playlist name is required' });
   }
 
   try {
-    const newPlaylist = new Playlist({ name, userId });
-    await newPlaylist.save();
-    res.status(201).json(newPlaylist);
+    const playlist = new Playlist({ name, user: req.user });
+    await playlist.save();
+    res.status(201).json(playlist);
   } catch (error) {
-    console.error('Error adding playlist:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: 'Failed to create playlist' });
   }
 });
 
-// Delete Playlist for Authenticated User
-router.delete('/api/playlists/:id', authenticateJWT, async (req, res) => {
-  const userId = req.userId; // Get userId from the JWT token
-  const playlistId = req.params.id;
+// Delete a playlist
+router.delete('/playlists/:id', authenticate, async (req, res) => {
+  const { id } = req.params;
 
   try {
-    const playlist = await Playlist.findOne({ _id: playlistId, userId });
-    
+    const playlist = await Playlist.findOneAndDelete({ _id: id, user: req.user });
     if (!playlist) {
-      return res.status(404).json({ error: 'Playlist not found or you do not have permission' });
+      return res.status(404).json({ error: 'Playlist not found' });
     }
-
-    await Playlist.deleteOne({ _id: playlistId });
-    res.status(200).json({ message: 'Playlist deleted' });
+    res.status(204).send();
   } catch (error) {
-    console.error('Error deleting playlist:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: 'Failed to delete playlist' });
   }
 });
 

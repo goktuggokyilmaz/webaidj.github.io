@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './playlistpanel.css'; // Import the CSS file
+import UserProfile from '../../components/UserProfile';
 
 const PlaylistPanel = () => {
   const [playlistName, setPlaylistName] = useState(''); // State to store the input
   const [playlists, setPlaylists] = useState([]); // State to store the list of playlists
-  const [trackData, setTrackData] = useState(null); // State to store track data
   const [userEmail, setUserEmail] = useState(''); // State to store the user's email
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
@@ -23,28 +23,6 @@ const PlaylistPanel = () => {
         })
         .catch(error => {
           console.error("Error fetching playlists:", error);
-        });
-
-      // Fetch user email
-      axios.get(`${backendUrl}/api/user`, {
-        headers: { Authorization: `Bearer ${token}` } // Include the token in the headers
-      })
-        .then(response => {
-          setUserEmail(response.data.email); // Set the email in state
-        })
-        .catch(error => {
-          console.error("Error fetching user email:", error);
-        });
-
-      // Fetch track analysis (you already had this part)
-      axios.get(`${backendUrl}/api/track-analysis`, {
-        headers: { Authorization: `Bearer ${token}` } // Include the token in the headers
-      })
-        .then(response => {
-          setTrackData(response.data); // Update track data state
-        })
-        .catch(error => {
-          console.error("Error fetching track analysis:", error);
         });
     }
   }, [backendUrl, token]); // Dependencies for useEffect: backendUrl and token
@@ -83,8 +61,8 @@ const PlaylistPanel = () => {
       headers: { Authorization: `Bearer ${token}` } // Include the token in the headers
     })
       .then(() => {
-        const updatedPlaylists = playlists.filter((playlist) => playlist.id !== playlistId);
-        setPlaylists(updatedPlaylists);
+        const updatedPlaylists = playlists.filter((playlist) => playlist._id !== playlistId);
+        setPlaylists(updatedPlaylists); // Update playlists state to remove deleted playlist
       })
       .catch(error => {
         console.error("Error deleting playlist:", error);
@@ -94,9 +72,9 @@ const PlaylistPanel = () => {
   return (
     <div className="playlist-panel">
       <h2>Create a Playlist</h2>
-      
+
       {/* Display the user's email if it's available */}
-      {userEmail && <p>Welcome, {userEmail}</p>} {/* Displaying the email */}
+      {userEmail && <p>Welcome, {userEmail}</p>}
 
       {/* Playlist Creation Form */}
       <form className="playlist-form" onSubmit={handleFormSubmit}>
@@ -113,11 +91,11 @@ const PlaylistPanel = () => {
       {/* Display List of Playlists */}
       <ul className="playlist-list">
         {playlists.map((playlist) => (
-          <li key={playlist.id} className="playlist-item">
+          <li key={playlist._id} className="playlist-item"> {/* Use _id as key */}
             <span>{playlist.name}</span> {/* Display playlist name */}
             <button
               className="delete-button"
-              onClick={() => handleDeletePlaylist(playlist.id)}
+              onClick={() => handleDeletePlaylist(playlist._id)}
             >
               Delete
             </button>

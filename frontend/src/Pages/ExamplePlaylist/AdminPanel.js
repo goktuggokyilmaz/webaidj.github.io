@@ -3,6 +3,7 @@ import PlaylistPanel from './playlistpanel.js'; // The Playlist creation compone
 import { useNavigate } from 'react-router-dom'; // Import the useNavigate hook for redirection
 import './adminpanel.css';
 import your_logo_path from "../../DJAILogo.png"
+import UserProfile from '../../components/UserProfile.js';
 
 const AdminPanel = () => {
   const [selectedContent, setSelectedContent] = useState('playlists'); // Default content
@@ -28,6 +29,7 @@ const AdminPanel = () => {
         {/* Sidebar */}
         <div className="sidebar">
           <ul className="sidebar-menu">
+            <UserProfile />
             <li onClick={() => handleContentChange('playlists')}>MyLists</li>
             <li onClick={() => handleContentChange('users')}>Discover</li>
             <li className="admin-sidebar-logout"onClick={() => handleLogOut()}>Log Out</li>

@@ -27,18 +27,19 @@ const SignIn = () => {
 
   const signUp = async (e) => {
     e.preventDefault(); // Prevents page refresh on form submission
-
+  
     try {
-      const response = await fetch('http://localhost:5000/api/signup', {
+      const response = await fetch('http://localhost:5000/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
-      
+  
       if (response.ok) {
         const data = await response.json();
         console.log('User signed up successfully:', data);
         // Optionally, redirect to the sign-in page
+        navigate("/signin"); // Redirect to sign-in page
       } else {
         const errorData = await response.json();
         console.error('Sign-up error:', errorData);
@@ -46,13 +47,13 @@ const SignIn = () => {
     } catch (error) {
       console.error('Network error:', error);
     }
-  };
+  };  
 
   const signIn = async (e) => {
     e.preventDefault(); // Prevents page refresh on form submission
 
     try {
-      const response = await fetch('http://localhost:5000/api/signin', {
+      const response = await fetch('http://localhost:5000/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -63,10 +64,10 @@ const SignIn = () => {
         console.log('User signed in successfully:', data);
 
         // Store the JWT token in localStorage
-        localStorage.setItem('authToken', response.data.token);
+        localStorage.setItem('token', data.token);
 
         // Optionally, redirect to a dashboard or home page
-        navigate('/discover'); // Example: redirect to dashboard
+        navigate("/discover"); // Example: redirect to dashboard
 
       } else {
         const errorData = await response.json();
@@ -104,7 +105,9 @@ const SignIn = () => {
               className="signin-input" 
               onChange={(e) => setPassword(e.target.value)} 
             />
-            <button type="submit" className="signin-button">Sign In</button>
+            <button onClick={signIn} className="signin-button">
+            {'Sign In'}
+          </button>
           </form>
         ) : (
           <form className="signin-form" onSubmit={signUp}>
@@ -123,7 +126,9 @@ const SignIn = () => {
               onChange={(e) => setPassword(e.target.value)} 
             />
             <input type="password" placeholder="Confirm Password" required className="signin-input" />
-            <button type="submit" className="signin-button">Sign Up</button>
+            <button onClick={signUp} className="signin-button">
+            {'Sign Up'}
+          </button>
           </form>
         )}
         <p className="signin-footer">

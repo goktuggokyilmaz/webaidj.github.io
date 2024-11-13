@@ -1,94 +1,173 @@
 /* Navbar at the top */
 .admin-navbar {
-    width: 100%;
-    height: 60px;
-    background-color: #1e1e1e;
-    color: white;
-    display: flex;
-    align-items: center;
-    padding: 0 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  }
-  
-  .admin-djai2 {
-    width: 48px;
-    height: 48px;
-    position: absolute;
-    left: 33px;
-    top: 10px;
-  }
-  
-  .admin-ai-dj {
-    width: auto;
-    height: 46px;
-    position: absolute;
-    left: 90px;
-    top: 10px;
-    color: #13dcee;
-    font-size: 36px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 700;
-    
-    /* Modern enhancements */
-    background: linear-gradient(90deg, #12c2e9, #c471ed, #f64f59); /* Gradient effect */
-    -webkit-background-clip: text; /* Clip gradient to text */
-    -webkit-text-fill-color: transparent; /* Make the text transparent to show the gradient */
-    
-    text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-    letter-spacing: 1.5px; /* Spacing for cleaner look */
-    transition: transform 0.3s ease, text-shadow 0.3s ease; /* Smooth transitions */
-    cursor: pointer;
-    
-  }
-  
-  .admin-ai-dj:hover,.admin-djai2:hover {
-    transform: scale(1.05); /* Slight zoom effect on hover */
-    text-shadow: 4px 8px 10px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
-  }
-  
-  
-  /* Admin panel layout */
-  .admin-layout {
-    display: flex;
-    height: calc(100vh - 60px); /* Fill the height excluding the navbar */
-  }
-  
-  /* Sidebar */
-  .sidebar {
-    width: 200px;
-    background-color: #2a2d30;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .sidebar-menu {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .sidebar-menu li {
-    color: white;
-    padding: 15px 0;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .sidebar-menu li:hover {
-    color: #12c2e9;
-    transform: scale(1.05); /* Slight zoom effect on hover */
-  }
+  width: 100%;
+  height: 60px;
+  background-color: #1e1e1e;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  z-index: 100;
+}
 
-  .admin-sidebar-logout {
-    top: 400px;
-  }
-  
-  /* Main content area */
-  .main-content {
-    flex-grow: 1;
-    background-color: #1e1e1e;
-    padding: 20px;
-    color: white;
-    overflow-y: auto;
-  }
-  
+.admin-ai-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.admin-djai2 {
+  width: 48px;
+  height: 48px;
+  margin-right: 10px; /* Spacing between logo and text */
+}
+
+.admin-ai-dj {
+  font-size: 1.8rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  color: #13dcee;
+  background: linear-gradient(90deg, #12c2e9, #c471ed, #f64f59);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
+  letter-spacing: 1.5px;
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.admin-ai-dj:hover, .admin-djai2:hover {
+  transform: scale(1.05); /* Zoom effect on hover */
+  text-shadow: 4px 8px 10px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+}
+
+/* Admin panel layout */
+.admin-layout {
+  display: flex;
+  height: calc(100vh - 60px); /* Full height excluding the navbar */
+  margin-top: 60px; /* Offset for the fixed navbar */
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: #2a2d30;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.sidebar.expanded {
+  width: 350px; /* Expanded width */
+}
+
+.sidebar-up-menu,
+.sidebar-down-menu {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar-up-menu li,
+.sidebar-down-menu li {
+  display: flex;
+  align-items: flex-start;
+  color: white;
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.sidebar-up-menu li:hover,
+.sidebar-down-menu li:hover {
+  color: #12c2e9;
+  transform: scale(1.05);
+}
+
+/* Ensures the bottom logout menu stays at the bottom */
+.sidebar-down-menu {
+  margin-top: auto;
+}
+
+.add-playlist-button {
+  position: relative;
+  margin-left: 8px;
+  cursor: pointer;
+  color: #fff;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.add-playlist-button:hover {
+  color: #00ff33;
+  background-color: #3a3d40;
+  border-radius: 50%;
+  transform: scale(1.2);
+}
+
+/* Tooltip styling for top-left position */
+.add-playlist-button::after {
+  content: "Create playlist";
+  position: absolute;
+  top: -35px; /* Adjust height above button */
+  left: -85px; /* Adjust for top-left alignment */
+  background-color: #3a3d40;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.add-playlist-button:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Collapsible Library Playlists */
+.library-section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+
+.library-playlist-list {
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: #2a2d30;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px; /* Space between "Your Library" and the list */
+  width: 100%; /* Full width of the sidebar */
+  transition: max-height 0.3s ease;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.library-playlist-list li {
+  padding: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.library-playlist-list li:hover {
+  background-color: #3a3d40;
+}
+
+/* Main content area */
+.admin-main-content {
+  flex: 1;
+  padding: 20px;
+  background-color: #181818;
+  color: white;
+  overflow-y: auto;
+}

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MP3 Crossfade Tester</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+        .drop-zone {
+            border: 2px dashed #cccccc;
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+            margin-bottom: 10px;
+            color: #666666;
+            cursor: pointer;
+        }
+        .drop-zone.dragover {
+            border-color: #333333;
+            color: #333333;
+        }
+        .file-input {
+            margin-bottom: 20px;
+        }
+        #audio-player-container {
+            display: none;
+            margin-top: 20px;
+        }
+        #loading-message {
+            display: none;
+            margin-top: 20px;
+            color: #333333;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>MP3 Crossfade Tester</h1>
+
+    <div class="drop-zone" id="drop-zone-1">
+        Drop the first MP3 file here or select from your computer
+    </div>
+    <input type="file" class="file-input" id="file-input-1" accept="audio/mpeg">
+
+    <div class="drop-zone" id="drop-zone-2">
+        Drop the second MP3 file here or select from your computer
+    </div>
+    <input type="file" class="file-input" id="file-input-2" accept="audio/mpeg">
+
+    <button id="submit-button" disabled>Submit & Crossfade</button>
+
+    <div id="loading-message">Please wait a moment while we process your files...</div>
+
+    <div id="audio-player-container">
+        <audio id="audio-player" controls></audio>
+    </div>
+
+    <script>
+        let file1, file2;
+
+        function setupDropZone(dropZone, fileInput, fileSetter) {
+            // Drag and drop functionality
+            dropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropZone.classList.add('dragover');
+            });
+
+            dropZone.addEventListener('dragleave', () => {
+                dropZone.classList.remove('dragover');
+            });
+
+            dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('dragover');
+                const droppedFile = e.dataTransfer.files[0];
+                if (droppedFile && droppedFile.type === 'audio/mpeg') {
+                    fileSetter(droppedFile);
+                    dropZone.textContent = `Loaded: ${droppedFile.name}`;
+                    enableSubmitButton();
+                } else {
+                    alert("Please drop a valid MP3 file.");
+                }
+            });
+
+            // File input functionality
+            fileInput.addEventListener('change', (e) => {
+                const selectedFile = e.target.files[0];
+                if (selectedFile && selectedFile.type === 'audio/mpeg') {
+                    fileSetter(selectedFile);
+                    dropZone.textContent = `Loaded: ${selectedFile.name}`;
+                    enableSubmitButton();
+                } else {
+                    alert("Please select a valid MP3 file.");
+                }
+            });
+        }
+
+        function enableSubmitButton() {
+            if (file1 && file2) {
+                document.getElementById('submit-button').disabled = false;
+            }
+        }
+
+        // Set up both drop zones and file inputs
+        setupDropZone(
+            document.getElementById('drop-zone-1'),
+            document.getElementById('file-input-1'),
+            (file) => file1 = file
+        );
+        setupDropZone(
+            document.getElementById('drop-zone-2'),
+            document.getElementById('file-input-2'),
+            (file) => file2 = file
+        );
+
+        // Submit button functionality
+        document.getElementById('submit-button').addEventListener('click', async () => {
+            // Show the loading message
+            const loadingMessage = document.getElementById('loading-message');
+            loadingMessage.style.display = 'block';
+
+            const formData = new FormData();
+            formData.append('file1', file1);
+            formData.append('file2', file2);
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/crossfade/', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const audioUrl = URL.createObjectURL(blob);
+
+                    // Display the audio player and set its source without autoplay
+                    const audioPlayerContainer = document.getElementById('audio-player-container');
+                    const audioPlayer = document.getElementById('audio-player');
+                    audioPlayer.src = audioUrl;
+                    audioPlayerContainer.style.display = 'block';
+                } else {
+                    alert("Failed to crossfade the audio files. Please try again.");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("An error occurred while processing the files.");
+            } finally {
+                // Hide the loading message after processing
+                loadingMessage.style.display = 'none';
+            }
+        });
+    </script>
+
+</body>
+</html>

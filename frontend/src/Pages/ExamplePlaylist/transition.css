@@ -1,0 +1,101 @@
+/* Container styling */
+.create-transition {
+    padding: 20px;
+    max-width: 500px;
+    margin: 0 auto;
+    color: #fff;
+    background-color: #2a2d30;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    text-align: center;
+  }
+  
+  /* Header */
+  .create-transition h2 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #13dcee;
+  }
+  
+  /* Form styling */
+  .create-transition form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .create-transition label {
+    font-size: 1rem;
+    color: #e0e0e0;
+  }
+  
+  .create-transition input[type="file"] {
+    padding: 8px;
+    font-size: 0.9rem;
+    color: #fff;
+    background-color: #3a3d40;
+    border: 1px solid #444;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .create-transition input[type="file"]:hover {
+    background-color: #4a4d50;
+  }
+  
+  /* Button styling */
+  .create-transition button {
+    padding: 10px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #13dcee;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+  }
+  
+  .create-transition button:hover {
+    background-color: #0bb5d4;
+  }
+  
+  /* Result section */
+  .result-section {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .result-section h3 {
+    font-size: 1.2rem;
+    color: #13dcee;
+    margin-bottom: 10px;
+  }
+  
+  .result-section a {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    color: #fff;
+    background-color: #ff4d4d;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .result-section a:hover {
+    background-color: #ff3333;
+  }
+  
+  /* Audio player styling */
+  .audio-player {
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 5px;
+    outline: none;
+    background-color: #1c1c1e;
+  }
+  

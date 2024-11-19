@@ -1,100 +1,106 @@
-/* Main container for the playlist panel */
+/* Styles for the playlist panel */
 .playlist-panel {
-    width: 800px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #1e1e1e;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    color: white;
-    font-family: 'Roboto', sans-serif;
-  }
-  
-  /* Title */
-  .playlist-panel h2 {
-    text-align: center;
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-    color: #12c2e9;
-  }
-  
-  /* Playlist Form */
-  .playlist-form {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-  }
-  
-  .playlist-input {
-    width: 50%;
-    padding: 10px;
-    border: 2px solid #12c2e9;
-    border-radius: 5px;
-    background-color: #2a2d30;
-    color: white;
-    font-size: 1rem;
-    outline: none;
-    transition: border-color 0.3s ease;
-  }
-  
-  .playlist-input:focus {
-    border-color: #c471ed;
-  }
-  
-  /* Create Button */
-  .create-button {
-    width: 20%;
-    padding: 10px;
-    margin-left: 20px;
-    background-color: #12c2e9;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .create-button:hover {
-    background-color: #f64f59;
-  }
-  
-  /* Playlist List */
-  .playlist-list {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .playlist-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: #2a2d30;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .playlist-item:hover {
-    background-color: #3a3d40;
-  }
-  
-  .playlist-item span {
-    font-size: 1rem;
-  }
-  
-  /* Delete Button */
-  .delete-button {
-    background-color: #f64f59;
-    border: none;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .delete-button:hover {
-    background-color: #c471ed;
-  }
-  
+  padding: 20px;
+  color: #fff;
+  background-color: #1c1c1e;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Playlist Creation Form */
+.playlist-form {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.playlist-input,
+.file-input,
+.create-button {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #444;
+  border-radius: 5px;
+  background-color: #2c2c2e;
+  color: #fff;
+  transition: border-color 0.3s, background-color 0.3s;
+}
+
+.playlist-input:focus,
+.file-input:focus,
+.create-button:hover {
+  border-color: #13dcee;
+  background-color: #333;
+}
+
+.create-button {
+  background-color: #4e94d4;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.create-button:hover {
+  background-color: #0bb5d4;
+}
+
+/* Song List Styles */
+.song-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.song-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  background-color: #2a2a2c;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.song-item:hover {
+  background-color: #333;
+  transform: scale(1.02);
+}
+
+.song-name {
+  flex: 1;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #e0e0e0;
+}
+
+/* Audio Player Styling */
+.audio-player {
+  flex-basis: 400px;
+  border-radius: 5px;
+  outline: none;
+  background-color: #1c1c1e;
+}
+
+/* Modern Delete Button */
+.delete-button {
+  background-color: #ff4d4d;
+  width: 90px;
+  color: #fff;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.delete-button:hover {
+  background-color: #ff3333;
+  transform: scale(1.05);
+}

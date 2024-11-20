@@ -1,0 +1,67 @@
+.playlist-player {
+    padding: 20px;
+    background-color: #1c1c1e;
+    color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .player-title {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  .playlist {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .track {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: #2c2c2e;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s;
+  }
+  
+  .track:hover {
+    background-color: #333;
+  }
+  
+  .track-title {
+    font-size: 1rem;
+    color: #e0e0e0;
+    flex: 1;
+  }
+  
+  .play-button {
+    background-color: #4e94d4;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  
+  .play-button:hover {
+    background-color: #0bb5d4;
+    transform: scale(1.1);
+  }
+  
+  audio {
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 5px;
+  }
+  

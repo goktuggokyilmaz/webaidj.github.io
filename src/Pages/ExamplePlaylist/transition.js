@@ -38,6 +38,9 @@ const CreateTransition = () => {
   return (
     <div className="create-transition">
       <h2>Create Transition</h2>
+      <p>
+        With our advance transition generation model you can use this tool to generate transation between two songs you have chossen.
+      </p>
       <form onSubmit={handleSubmit}>
         <div>
           <label>First MP3 File:</label>
@@ -47,7 +50,7 @@ const CreateTransition = () => {
           <label>Second MP3 File:</label>
           <input type="file" accept=".mp3" onChange={handleFileChange2} />
         </div>
-        <button type="submit">Generate Crossfade</button>
+        <button type="submit" className='create-button'>Generate Crossfade</button>
       </form>
       
       {resultUrl && (

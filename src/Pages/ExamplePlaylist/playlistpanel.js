@@ -62,7 +62,9 @@ const PlaylistPanel = () => {
 
   return (
     <div className="playlist-panel">
-      <h2>Create Your Playlist</h2>
+      <div class="playlist-header">
+        <h2 class="playlist-title">Create Your Playlist</h2>
+      </div>
 
       {/* Playlist Creation Form */}
       <form className="playlist-form" onSubmit={handleFormSubmit}>
@@ -81,8 +83,10 @@ const PlaylistPanel = () => {
           className="file-input"
         />
         <button type="submit" className="create-button">Save Playlist</button>
+        <button className="generate-button">Generate Playlist</button>
       </form>
-
+      <p className='playlistparagraph'> 
+      Add mp3 files of songs to your playlist, then click the "Generate Playlist" button to organize your selections. Our model will then create seamless transitions between the songs.</p>
       {/* Display Current Playlist Songs as a List */}
       <h3>Playlist Songs</h3>
       <ul className="song-list">

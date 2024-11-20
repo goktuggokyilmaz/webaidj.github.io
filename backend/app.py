@@ -4,6 +4,8 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pydub import AudioSegment
 from pathlib import Path
+import nbformat
+from nbconvert import ExecutePreprocessor
 import json
 import tempfile
 import os
@@ -60,24 +62,34 @@ async def crossfade_audio(
     # Return the crossfaded file as response
     return FileResponse(crossfaded_path, media_type="audio/mpeg", filename="crossfaded.mp3")
 
-@app.post("/run-script")
-async def run_script(script_path: str = "last_main.py"):
-    """Run a Python script directly."""
-    if not Path(script_path).is_file():
-        raise HTTPException(status_code=404, detail=f"Script {script_path} not found.")
+@app.post("/run-notebook")
+async def run_notebook(notebook_path: str):
+    """Run a Jupyter Notebook and return its output."""
+    notebook_file = Path(notebook_path)
+    if not notebook_file.is_file():
+        raise HTTPException(status_code=404, detail=f"Notebook {notebook_path} not found.")
     
     try:
-        # Run the script as a subprocess
-        result = subprocess.run(
-            ["python", script_path],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True,
-            check=True
-        )
-        return {"status": "Script executed successfully", "output": result.stdout}
-    except subprocess.CalledProcessError as e:
-        return {"status": "Error executing script", "error": e.stderr}
+        # Load the notebook
+        with open(notebook_file, "r", encoding="utf-8") as f:
+            notebook_content = nbformat.read(f, as_version=4)
+        
+        # Set up the ExecutePreprocessor
+        ep = ExecutePreprocessor(timeout=600, kernel_name='python3')
+        
+        # Run the notebook
+        ep.execute(notebook_content, resources={"output": "./"})
+
+        # Save the executed notebook (optional)
+        executed_notebook_path = notebook_file.stem + "_executed.ipynb"
+        with open(executed_notebook_path, "w", encoding="utf-8") as f:
+            nbformat.write(notebook_content, f)
+
+        # Return the executed notebook
+        return FileResponse(executed_notebook_path, media_type="application/json", filename=executed_notebook_path)
+    
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"An error occurred: {str(e)}")
 
 @app.get("/get-mp3")
 async def get_mp3():

@@ -1,22 +1,28 @@
 from fastapi import FastAPI, UploadFile, File
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pydub import AudioSegment
 import tempfile
 import os
+import json
 
 app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Adjust this to match your frontend URL
+    allow_origins=["http://localhost:3000"],  # Replace with your frontend URL
     allow_credentials=True,
-    allow_methods=["*"],  # Allow all HTTP methods
-    allow_headers=["*"],  # Allow all headers
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
+
 # Mount the static directory to serve the HTML frontend and other static files
 app.mount("/static", StaticFiles(directory="static"), name="static")
+
+# Folder where discover playlists are stored
+DISCOVER_FOLDER = "discover"
+PLAYLIST_DATA_FILE = os.path.join("static", "playlist_data.json")
 
 # Serve the index.html file at the root URL
 @app.get("/")
@@ -55,3 +61,28 @@ async def crossfade_audio(
 
     # Return the crossfaded file as response
     return FileResponse(crossfaded_path, media_type="audio/mpeg", filename="crossfaded.mp3")
+
+@app.get("/discover/")
+async def list_discover_audio():
+    """
+    Returns playlist data from the playlist_data.json file.
+    """
+    if not os.path.exists(PLAYLIST_DATA_FILE):
+        return JSONResponse(content={"error": "Playlist data file not found"}, status_code=404)
+
+    with open(PLAYLIST_DATA_FILE, "r") as f:
+        playlist_data = json.load(f)
+
+    return playlist_data
+
+
+@app.get("/discover/{filename}")
+async def get_discover_audio(filename: str):
+    """
+    Serves a specific MP3 file from the 'discover' folder.
+    """
+    file_path = os.path.join(DISCOVER_FOLDER, filename)
+    if not os.path.exists(file_path):
+        return JSONResponse(content={"error": "File not found"}, status_code=404)
+
+    return FileResponse(file_path, media_type="audio/mpeg", filename=filename)

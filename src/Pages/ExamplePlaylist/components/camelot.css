@@ -1,0 +1,11 @@
+.camelot-key-wheel {
+    margin: auto;
+    display: block;
+    max-width: 500px;
+  }
+  
+  text {
+    font-family: Arial, sans-serif;
+    pointer-events: none;
+  }
+  

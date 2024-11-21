@@ -1,58 +1,62 @@
-import React, { useEffect } from 'react';
-import './discoverplayer.css';
+import React, { useEffect, useState } from "react";
+import "./discoverplayer.css";
+import CamelotKeyWheel from "./components/camelotkey";
 
 const DiscoverPlaylists = () => {
+  const [playlist, setPlaylist] = useState(null);
+
   useEffect(() => {
-    const audioPlayer = document.getElementById("audio-player");
-    const playButtons = document.querySelectorAll(".play-button");
+    // Fetch playlist data from the backend
+    fetch("http://localhost:8000/discover/")
+      .then((response) => response.json())
+      .then((data) => setPlaylist(data.playlist))
+      .catch((error) => console.error("Error fetching playlist data:", error));
+  }, []);
 
-    const handlePlayButtonClick = (event) => {
-      const button = event.target;
-      const track = button.parentElement;
-      const trackSrc = track.getAttribute("data-src");
-
-      // Load and play the selected track
-      if (audioPlayer.src !== trackSrc) {
-        audioPlayer.src = trackSrc;
-        audioPlayer.play();
-      } else if (audioPlayer.paused) {
-        audioPlayer.play();
-      } else {
-        audioPlayer.pause();
-      }
-
-      // Update button text based on play/pause state
-      playButtons.forEach((btn) => (btn.textContent = "▶"));
-      button.textContent = audioPlayer.paused ? "▶" : "⏸";
-    };
-
-    // Attach event listeners
-    playButtons.forEach((button) =>
-      button.addEventListener("click", handlePlayButtonClick)
-    );
-
-    // Clean up listeners on unmount
-    return () => {
-      playButtons.forEach((button) =>
-        button.removeEventListener("click", handlePlayButtonClick)
-      );
-    };
-  }, []); // Empty dependency array ensures this runs once when the component mounts
+  const handleCheckpointClick = (audioPlayer, time) => {
+    audioPlayer.currentTime = time; // Jump to the specified time
+    audioPlayer.play();
+  };
 
   return (
     <div className="playlist-player">
-      <h2 className="player-title">Playlist Player</h2>
-      <ul className="playlist">
-        <li className="track" data-src="public/playlists/playlist1.mp3">
-          <span className="track-title">Playlist 1</span>
-          <button className="play-button">▶</button>
-        </li>
-        <li className="track" data-src="public/playlists/playlist2.mp3">
-          <span className="track-title">Playlist 2</span>
-          <button className="play-button">▶</button>
-        </li>
-      </ul>
-      <audio id="audio-player" controls></audio>
+      <h2 className="player-title">Discover Playlist</h2>
+      {playlist && (
+        <div>
+          {/* Audio Player */}
+          <audio
+            className="audio-player"
+            controls
+            src={`http://localhost:8000/discover/${playlist.filename}`}
+            id="audio-player"
+          ></audio>
+          
+          {/* Checkpoints */}
+          <h3>Checkpoints</h3>
+          <div className="checkpoints-div">
+          <ul className="checkpoints">
+            {playlist.checkpoints.map((checkpoint, index) => (
+              <li key={index}>
+                <button
+                  onClick={() =>
+                    handleCheckpointClick(
+                      document.getElementById("audio-player"),
+                      checkpoint.time
+                    )
+                  }
+                  className="checkpoint-button"
+                >
+                  {checkpoint.title} - {checkpoint.camelotKey} - BPM:{" "}
+                  {checkpoint.bpm.toFixed(2)} - Energy:{" "}
+                  {checkpoint.energy.toFixed(2)}
+                </button>
+              </li>
+            ))}
+          </ul>
+          <CamelotKeyWheel/>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

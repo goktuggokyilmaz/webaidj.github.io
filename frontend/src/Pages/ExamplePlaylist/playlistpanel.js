@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './playlistpanel.css';
+import ServiceConstants from '../../constants/ServiceConstants';
+import axios from 'axios';
 
 const PlaylistPanel = () => {
   const [playlistName, setPlaylistName] = useState('');
@@ -23,13 +25,18 @@ const PlaylistPanel = () => {
   };
 
   const handleFileChange = (e) => {
-    const files = Array.from(e.target.files);
+    const files = Array.from(e.target.files); // Get the File objects
     const mp3Files = files
-      .filter((file) => file.type === 'audio/mpeg')
-      .map((file) => ({ name: file.name, url: URL.createObjectURL(file) }));
-    setCurrentPlaylist([...currentPlaylist, ...mp3Files]);
+      .filter((file) => file.type === "audio/mpeg") // Only allow MP3 files
+      .map((file) => ({
+        name: file.name,
+        file: file, // Save the actual File object
+        url: URL.createObjectURL(file), // For audio preview
+      }));
+  
+    setCurrentPlaylist((prevPlaylist) => [...prevPlaylist, ...mp3Files]);
   };
-
+  
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
@@ -59,6 +66,40 @@ const PlaylistPanel = () => {
     setCurrentPlaylist(updatedSongs);
   };
 
+  const handleGeneratePlaylist = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("playlist_name", playlistName);
+  
+      currentPlaylist.forEach((song, index) => {
+        console.log(`Adding file ${index}:`, song.file);
+        formData.append("files", song.file); // Ensure 'song.file' is a File object
+      });
+  
+      console.log("Sending FormData:");
+      for (let [key, value] of formData.entries()) {
+        console.log(key, value);
+      }
+  
+      const response = await axios.post(ServiceConstants.PROCESS_PLAYLIST, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+  
+      alert("Playlist processed successfully!");
+      console.log(response.data);
+
+      // After playlist optimization, show options to select a playlist (you can add a state to display them)
+      // Assuming you get the generated playlists' details in response
+      setGeneratedPlaylists(response.data.playlists);  // Assuming the response contains playlist details
+
+
+    } catch (error) {
+      console.error("Error generating playlist:", error);
+      alert("Failed to process playlist.");
+    }
+  };
+  
+  
 
   return (
     <div className="playlist-panel">
@@ -83,7 +124,9 @@ const PlaylistPanel = () => {
           className="file-input"
         />
         <button type="submit" className="create-button">Save Playlist</button>
-        <button className="generate-button">Generate Playlist</button>
+        <button className="generate-button"
+                onClick={handleGeneratePlaylist}>
+                  Generate Playlist</button>
       </form>
       <p className='playlistparagraph'> 
       Add mp3 files of songs to your playlist, then click the "Generate Playlist" button to organize your selections. Our model will then create seamless transitions between the songs.</p>

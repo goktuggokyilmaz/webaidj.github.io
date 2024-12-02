@@ -1,28 +1,28 @@
-from fastapi import FastAPI, UploadFile, File, HTTPException
-from fastapi.responses import FileResponse
+from fastapi import FastAPI, UploadFile, File
+from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pydub import AudioSegment
-from pathlib import Path
-import nbformat
-from nbconvert import ExecutePreprocessor
-import json
 import tempfile
 import os
-import subprocess
+import json
 
 app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Adjust this to match your frontend URL
+    allow_origins=["http://localhost:3000"],  # Replace with your frontend URL
     allow_credentials=True,
-    allow_methods=["*"],  # Allow all HTTP methods
-    allow_headers=["*"],  # Allow all headers
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # Mount the static directory to serve the HTML frontend and other static files
 app.mount("/static", StaticFiles(directory="static"), name="static")
+
+# Folder where discover playlists are stored
+DISCOVER_FOLDER = "discover"
+PLAYLIST_DATA_FILE = os.path.join("static", "playlist_data.json")
 
 # Serve the index.html file at the root URL
 @app.get("/")
@@ -62,40 +62,27 @@ async def crossfade_audio(
     # Return the crossfaded file as response
     return FileResponse(crossfaded_path, media_type="audio/mpeg", filename="crossfaded.mp3")
 
-@app.post("/run-notebook")
-async def run_notebook(notebook_path: str):
-    """Run a Jupyter Notebook and return its output."""
-    notebook_file = Path(notebook_path)
-    if not notebook_file.is_file():
-        raise HTTPException(status_code=404, detail=f"Notebook {notebook_path} not found.")
-    
-    try:
-        # Load the notebook
-        with open(notebook_file, "r", encoding="utf-8") as f:
-            notebook_content = nbformat.read(f, as_version=4)
-        
-        # Set up the ExecutePreprocessor
-        ep = ExecutePreprocessor(timeout=600, kernel_name='python3')
-        
-        # Run the notebook
-        ep.execute(notebook_content, resources={"output": "./"})
+@app.get("/discover/")
+async def list_discover_audio():
+    """
+    Returns playlist data from the playlist_data.json file.
+    """
+    if not os.path.exists(PLAYLIST_DATA_FILE):
+        return JSONResponse(content={"error": "Playlist data file not found"}, status_code=404)
 
-        # Save the executed notebook (optional)
-        executed_notebook_path = notebook_file.stem + "_executed.ipynb"
-        with open(executed_notebook_path, "w", encoding="utf-8") as f:
-            nbformat.write(notebook_content, f)
+    with open(PLAYLIST_DATA_FILE, "r") as f:
+        playlist_data = json.load(f)
 
-        # Return the executed notebook
-        return FileResponse(executed_notebook_path, media_type="application/json", filename=executed_notebook_path)
-    
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"An error occurred: {str(e)}")
+    return playlist_data
 
-@app.get("/get-mp3")
-async def get_mp3():
-    mp3_file = Path("output.mp3")  # Replace with your actual MP3 filename
-    if not mp3_file.is_file():
-        raise HTTPException(status_code=404, detail="MP3 file not found.")
-    
-    # Serve the MP3 file as a response
-    return FileResponse(mp3_file, media_type="audio/mpeg", filename="output.mp3")
+
+@app.get("/discover/{filename}")
+async def get_discover_audio(filename: str):
+    """
+    Serves a specific MP3 file from the 'discover' folder.
+    """
+    file_path = os.path.join(DISCOVER_FOLDER, filename)
+    if not os.path.exists(file_path):
+        return JSONResponse(content={"error": "File not found"}, status_code=404)
+
+    return FileResponse(file_path, media_type="audio/mpeg", filename=filename)

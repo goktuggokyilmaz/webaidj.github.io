@@ -1,0 +1,17 @@
+{
+    "playlist": {
+      "filename": "Can_Erdem_Set.mp3",
+      "length": 8,
+      "checkpoints": [
+        { "title": "El Layali", "time": 0, "camelotKey": "4B", "bpm": 122.75, "energy": 0.2276 },
+        { "title": "Osama", "time": 40.44, "camelotKey": "4A", "bpm": 123.98, "energy": 0.2280 },
+        { "title": "Cola", "time": 230.712, "camelotKey": "3A", "bpm": 122.81, "energy": 0.2884 },
+        { "title": "Vamonos", "time": 396.608, "camelotKey": "4A", "bpm": 121.82, "energy": 0.3008 },
+        { "title": "Moth To A Flame (Moojo Remix)","time": 702.2,"camelotKey": "4A","bpm": 122.7,"energy": 0.3083},
+        { "title": "Marea (we’ve lost dancing)","time": 1008.768,"camelotKey": "4A","bpm": 123.82,"energy": 0.3186},
+        { "title": "Canto del Pilón", "time": 1234.176, "camelotKey": "4A", "bpm": 122.96, "energy": 0.3401 },
+        { "title": "Tra Tra", "time": 1440.216, "camelotKey": "4A", "bpm": 124.96, "energy": 0.3722 }
+      ]
+    }
+}
+  

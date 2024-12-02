@@ -1,0 +1,36 @@
+.playlist {
+  list-style: none;
+  padding: 0;
+}
+
+.track {
+  margin-bottom: 20px;
+}
+
+.audio-player {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.checkpoints {
+  margin-top: 10px;
+}
+
+.checkpoints-div {
+  display: flex;
+  align-items: flex-start;
+}
+
+.checkpoint-button {
+  margin: 5px;
+  padding: 8px 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.checkpoint-button:hover {
+  background-color: #0056b3;
+}

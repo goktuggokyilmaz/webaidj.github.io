@@ -53,7 +53,7 @@
 
 /* Sidebar */
 .sidebar {
-  width: 250px;
+  width: 200px;
   background-color: #2a2d30;
   padding: 20px;
   display: flex;
@@ -64,7 +64,7 @@
 }
 
 .sidebar.expanded {
-  width: 350px; /* Expanded width */
+  width: 200px; /* Expanded width */
 }
 
 .sidebar-up-menu,

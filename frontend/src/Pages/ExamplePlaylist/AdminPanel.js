@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PlaylistPanel from './playlistpanel.js'; // Component for creating a playlist
 import CreateTransition from './transition.js'
+import DiscoverPlaylists from './discoverplaylist.js';
+
 import { useNavigate } from 'react-router-dom';
 import './adminpanel.css';
 import your_logo_path from "../../DJAILogo.png";
@@ -10,6 +12,7 @@ import { MdLibraryMusic } from "react-icons/md";
 import { RiRobot2Fill } from "react-icons/ri";
 import { AiOutlinePlus } from "react-icons/ai";
 import { PiMusicNotesPlusFill } from "react-icons/pi";
+
 
 const AdminPanel = () => {
   const [selectedContent, setSelectedContent] = useState('playlists');
@@ -80,7 +83,7 @@ const AdminPanel = () => {
         </div>
 
         <div className="admin-main-content">
-          {selectedContent === 'playlists' && <h2>Your Top Playlists</h2>}
+          {selectedContent === 'playlists' && <h2>Top Playlists according to our users</h2>}
           {selectedContent === 'create-playlist' && <PlaylistPanel />}
           {selectedContent === 'view-playlist' && activePlaylist && (
             <div>
@@ -89,7 +92,7 @@ const AdminPanel = () => {
               {/* Add more components or details here as needed */}
             </div>
           )}
-          {selectedContent === 'discover' && <h2>Discover Section</h2>}
+          {selectedContent === 'discover' && <DiscoverPlaylists />}
           {selectedContent === 'create-transition' && <CreateTransition />}
         </div>
       </div>

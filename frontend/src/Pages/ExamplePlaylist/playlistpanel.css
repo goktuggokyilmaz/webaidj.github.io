@@ -9,15 +9,53 @@
 
 /* Playlist Creation Form */
 .playlist-form {
+  margin-top: 30px;
   display: flex;
   flex-direction: row;
   gap: 10px;
   margin-bottom: 20px;
 }
 
+.playlist-header {
+  width: 100%;
+  height: 150px; /* Adjust height as needed */
+  background-image: url('/Users/yucel/Desktop/Sabanci/Python/djaiweb/webaidj/src/Crowdmusic.jpeg'); /* Replace with your image path */
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.playlist-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Adjust darkness: 0.5 for 50% dark */
+  z-index: 1;
+}
+
+.playlistparagraph{
+  width: 600px;
+}
+
+.playlist-title {
+  position: relative;
+  z-index: 2; /* Ensure text appears above the overlay */
+  color: #fff;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  line-height: 150px; /* Center text vertically */
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
 .playlist-input,
 .file-input,
-.create-button {
+.create-button
+.generate-button {
   padding: 10px;
   font-size: 1rem;
   border: 1px solid #444;
@@ -36,6 +74,16 @@
 
 .create-button {
   background-color: #4e94d4;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.generate-button {
+  background-color: #009448;
   color: #fff;
   border: none;
   cursor: pointer;

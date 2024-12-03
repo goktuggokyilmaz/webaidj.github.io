@@ -1,0 +1,5 @@
+T4 GPU
+11 şarkı içinden 3 şarkı seçti:
+Uploading songs took 0.87035 min.
+Playlist generation took 3.629807 min.
+Transition generation took 1.86033 min.

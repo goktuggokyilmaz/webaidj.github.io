@@ -11,6 +11,10 @@ const ServiceConstants = {
     DELETE_USER: `${BASE_URL}/api/users/delete`,
     DELETE_POST: `${BASE_URL}/api/posts/delete`,
     PROCESS_PLAYLIST: `${BASE_URL}/process-playlist`,
+    GENERATE_PLAYLIST: `${BASE_URL}/generate-playlist`,
+    GENERATE_TRANSITION: `${BASE_URL}/generate-transition`,
+    CHECK_FILE: `${BASE_URL}/check-file`,
+    GET_TIMES: `${BASE_URL}/get-times`,
 };
 
 export default ServiceConstants;

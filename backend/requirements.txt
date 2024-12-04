@@ -2,3 +2,13 @@ fastapi
 uvicorn
 pydub
 ffmpeg-python
+librosa
+numpy
+aubio
+transformers
+networkx
+nnAudio
+audiocraft
+pydub
+tkinter
+pandas

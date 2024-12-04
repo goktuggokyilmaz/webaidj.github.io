@@ -19,6 +19,7 @@ const AdminPanel = () => {
   const [isLibraryExpanded, setIsLibraryExpanded] = useState(false);
   const [playlists, setPlaylists] = useState([]);
   const [activePlaylist, setActivePlaylist] = useState(null); // Track the active playlist
+  const [generatedPlaylists, setGeneratedPlaylists] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {

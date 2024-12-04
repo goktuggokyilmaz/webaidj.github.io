@@ -1,0 +1,40 @@
+T4 GPU
+11 songs
+Uploading songs took 0.87035 min.
+Playlist generation took 3.629807 min.
+3 songs out of 11
+Transition generation took 1.86033 min.
+TOTAL: 6.360487 minutes
+
+L4 GPU
+11 songs
+Uploading songs took 1.65 minutes.
+Playlist generation took 1.03 minutes.
+3 songs out of 11
+Transition generation took 1.81 minutes.
+TOTAL: 4.49 minutes
+
+L4 GPU
+18 songs
+Uploading songs took 2.52 min.
+Playlist generation took 1.72 minutes.
+5-6 songs out of 18
+Transition generation took 3.94 minutes.
+TOTAL: 8.18 minutes
+
+A100 GPU
+10 songs
+Uploading songs took 0.87 minutes.
+Playlist generation took 1.04 minutes.
+3 songs out of 10
+Transition generation took 1.82 minutes.
+TOTAL: 3.73 minutes
+
+A100 GPU
+18 songs
+Uploading songs took 1.47 minutes.
+Playlist generation took 1.66 minutes.
+5-6 songs out of 18
+Transition generation took 3.76 minutes.
+TOTAL: 6.89 minutes
+

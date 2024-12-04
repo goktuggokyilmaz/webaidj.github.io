@@ -154,7 +154,7 @@ const PlaylistPanel = () => {
     const transitionFormData = new FormData();
     transitionFormData.append("playlist_name", playlistName); // Add the playlist name
 
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < actualSelectedPlaylist.length; i++) {
       transitionFormData.append('song_paths', "uploaded_songs/" + actualSelectedPlaylist[i]); // Assuming each song has a 'path' property
     }
 

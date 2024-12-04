@@ -12,6 +12,9 @@ const PlaylistPanel = () => {
   const [times, setTimes] = useState([]);
   const [songNames, setSongNames] = useState([]); // State to store song names
   const [songNamesArray, setSongNamesArray] = useState([]); // State to store song names
+  let [actualSelectedPlaylist, setActualSelectedPlaylist] = useState([]); // State to store the selected playlist
+  const [isLoading, setIsLoading] = useState(false);
+  const [combinedPlaylist, setCombinedPlaylist] = useState([]);
 
   // Generate default playlist name based on existing local storage data
   useEffect(() => {
@@ -69,7 +72,7 @@ const PlaylistPanel = () => {
     // Reset form inputs
     setPlaylistName(generateDefaultPlaylistName());
     setCurrentPlaylist([]);
-    alert('Please wait for the playlist to be processed.');
+    console.log('Please wait for the playlist to be processed.');
   };
 
   const handleDeleteSong = (indexToDelete) => {
@@ -79,6 +82,8 @@ const PlaylistPanel = () => {
 
   const handleGeneratePlaylist = async () => {
     try {
+
+      setIsLoading(true); // Show loading screen
 
       alert("Please wait for the playlists to be generated.");
       const formData = new FormData();
@@ -126,6 +131,7 @@ const PlaylistPanel = () => {
       alert("Playlist generated successfully!");
       console.log(`Playlist generation took ${(generationDuration*0.001/60).toFixed(2)} minutes.`);
       console.log(generatePlaylistResponse.data);
+      setIsLoading(false); // Show loading screen
 
       // Assuming the response contains playlist details
       setGeneratedPlaylists(generatePlaylistResponse.data.playlists);
@@ -133,17 +139,21 @@ const PlaylistPanel = () => {
     } catch (error) {
       console.error("Error processing playlist or generating playlist:", error);
       alert("An error occurred while processing the playlist or generating the playlist.");
+      setIsLoading(false); // Hide loading screen
     }
   };
 
   const handleGenerateTransition = async () => {
   try {
+
+    setIsLoading(true); // Show loading screen
+
     console.log("Selected Playlist ID:", selectedPlaylistId);
     console.log("Generated Playlists:", generatedPlaylists);
 
     // Get the selected playlist
     const selectedPlaylist = generatedPlaylists[selectedPlaylistId];
-    const actualSelectedPlaylist = selectedPlaylist[0]; // Assuming the selected playlist is an array
+    actualSelectedPlaylist = selectedPlaylist[0]; // Assuming the selected playlist is an array
     console.log("Actual Selected Playlist:", actualSelectedPlaylist);
 
     if (!actualSelectedPlaylist) {
@@ -200,9 +210,21 @@ const PlaylistPanel = () => {
     console.log("Transition times:", timesArray);
     setTimes(timesArray);
 
+    const combined = [];
+    for (let i = 0; i < timesArray.length; i++) {
+      combined.push({ song:actualSelectedPlaylist[i], time: timesArray[i] });
+    }
+
+    setCombinedPlaylist(combined);
+
+    console.log(combinedPlaylist)
+
+    setIsLoading(false); // Hide loading screen
+
   } catch (error) {
     console.error("Error generating transition:", error);
     alert("An error occurred while generating the transition.");
+    setIsLoading(false); // Hide loading screen
   }
 };
    
@@ -216,6 +238,7 @@ const PlaylistPanel = () => {
 
   return (
     <div className="playlist-panel">
+      
       <div className="playlist-header">
         <h2 className="playlist-title">Create Your Playlist</h2>
       </div>
@@ -242,6 +265,14 @@ const PlaylistPanel = () => {
                 onClick={handleGenerateTransition}>
                   Generate Transition</button>
       </form>
+
+      {isLoading && (
+        <div className="loading-screen">
+          <div className="loading-spinner"></div>
+          <p>Loading, please wait...</p>
+        </div>
+      )}
+
       <div className='playlistparagraph'> 
         <p>Here's a step-by-step guide to creating your playlist:</p>
         <ol>
@@ -306,10 +337,10 @@ const PlaylistPanel = () => {
           <h3>Generated Transition</h3>
           <audio id="audio-player" controls src={generatedMp3Url} className="audio-player" />
           <div>
-            {times.map((time, index) => (
+            {combinedPlaylist.map((item, index) => (
               <li key={index}>
-                <button onClick={() => jumpToTime(time)}>
-                  Song {index+1} - {(time/60).toFixed(2)} minutes
+                <button onClick={() => jumpToTime(item.time)}>
+                  {item.song} - {(item.time/60).toFixed(2)} minutes
                 </button>
               </li>
             ))}

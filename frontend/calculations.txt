@@ -22,3 +22,19 @@ Playlist generation took 1.72 minutes.
 Transition generation took 3.94 minutes.
 TOTAL: 8.18 minutes
 
+A100 GPU
+10 songs
+Uploading songs took 0.87 minutes.
+Playlist generation took 1.04 minutes.
+3 songs out of 10
+Transition generation took 1.82 minutes.
+TOTAL: 3.73 minutes
+
+A100 GPU
+18 songs
+Uploading songs took 1.47 minutes.
+Playlist generation took 1.66 minutes.
+5-6 songs out of 18
+Transition generation took 3.76 minutes.
+TOTAL: 6.89 minutes
+

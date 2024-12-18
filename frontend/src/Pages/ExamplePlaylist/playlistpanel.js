@@ -82,6 +82,12 @@ const PlaylistPanel = () => {
 
   const handleGeneratePlaylist = async () => {
     try {
+      if (currentPlaylist.length === 0) {
+        throw new Error("The playlist is empty. Please add some songs before generating the playlist.");
+      }
+      if (currentPlaylist.length <= 3) {
+        throw new Error("The playlist is too short. Please add more songs before generating the playlist.");
+      }
 
       setIsLoading(true); // Show loading screen
 
@@ -109,7 +115,7 @@ const PlaylistPanel = () => {
 
       const processDuration = processEndTime - processStartTime;
 
-      alert("Playlist processed successfully!");
+      alert("Songs uploaded successfully!\nPlease wait for the playlist to be generated.");
       console.log(`Uploading songs took ${(processDuration*0.001/60).toFixed(2)} minutes.`);
       console.log(processResponse.data);
 
@@ -134,7 +140,23 @@ const PlaylistPanel = () => {
       setIsLoading(false); // Show loading screen
 
       // Assuming the response contains playlist details
-      setGeneratedPlaylists(generatePlaylistResponse.data.playlists);
+    const newGeneratedPlaylists = generatePlaylistResponse.data.playlists;
+    console.log("New Generated Playlists:", newGeneratedPlaylists);
+
+    // Check if each generated playlist has 3 or fewer songs
+    newGeneratedPlaylists.forEach((playlist) => {
+      if (playlist[0].length < 3) {
+        throw new Error(`The generated playlist is too short or songs are incompatible!`);
+      }
+    });
+
+    setGeneratedPlaylists(newGeneratedPlaylists);
+
+    // Merge new generated playlists with existing ones in local storage
+    const savedPlaylists = JSON.parse(localStorage.getItem('playlists')) || [];
+    const updatedPlaylists = [...savedPlaylists, ...newGeneratedPlaylists];
+    localStorage.setItem('playlists', JSON.stringify(updatedPlaylists));
+
 
     } catch (error) {
       console.error("Error processing playlist or generating playlist:", error);
@@ -251,6 +273,7 @@ const PlaylistPanel = () => {
           onChange={handleInputChange}
           placeholder="Enter playlist name"
           className="playlist-input"
+          disabled={isLoading}
         />
         <input
           type="file"
@@ -258,11 +281,15 @@ const PlaylistPanel = () => {
           multiple
           onChange={handleFileChange}
           className="file-input"
+          disabled={isLoading}
         />
         <button type="submit" className="create-button"
-                onClick={handleGeneratePlaylist}>Save Playlist</button>
+                onClick={handleGeneratePlaylist}
+                disabled={isLoading}
+                >Save Playlist</button>
         <button className="generate-button"
-                onClick={handleGenerateTransition}>
+                onClick={handleGenerateTransition}
+                disabled={isLoading}>
                   Generate Transition</button>
       </form>
 
@@ -279,10 +306,18 @@ const PlaylistPanel = () => {
           <li>Enter a name for your playlist in the text box.</li>
           <li>Click the "Choose Files" button to select MP3 files from your computer.</li>
           <li>Click the "Save Playlist" button to create your playlist.</li>
-          <li>Wait for the playlist to be processed.</li>
+          <li>Wait for the playlist to be processed and generated.</li>
           <li>Once that is completed, click the "Generate Transition" button to create a seamless transition between the songs.</li>
           <li>Enjoy your playlist!</li>
         </ol>
+
+        <p className="warning-message">
+          <strong>Note</strong> 
+          <li>The transition generation process may take a few minutes depending on the number of songs and their lengths. Please be patient and do not close the browser window during this time.</li>
+          <li>The songs selected and generated playlist will only be stored temporarily. We advise you to download the generated playlist.</li>
+        </p>
+
+
       </div>
       {/* Display Current Playlist Songs as a List */}
       <h3>Playlist Songs</h3>
@@ -340,7 +375,7 @@ const PlaylistPanel = () => {
             {combinedPlaylist.map((item, index) => (
               <li key={index}>
                 <button onClick={() => jumpToTime(item.time)}>
-                  {item.song} - {(item.time/60).toFixed(2)} minutes
+                {item.song} - {Math.floor(item.time / 60)}:{Math.floor(item.time % 60).toString().padStart(2, '0')} minutes
                 </button>
               </li>
             ))}

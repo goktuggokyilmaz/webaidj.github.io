@@ -41,6 +41,13 @@ const AdminPanel = () => {
     setIsLibraryExpanded(!isLibraryExpanded);
   };
 
+  const handleDeletePlaylist = (playlistId) => {
+    const updatedPlaylists = playlists.filter((_, index) => index !== playlistId);
+    localStorage.setItem('playlists', JSON.stringify(updatedPlaylists));
+    setPlaylists(updatedPlaylists);
+    setActivePlaylist(null); // Reset active playlist if it was deleted
+  };
+
   return (
     <div className="admin-panel">
       <div className="admin-navbar">
@@ -90,6 +97,7 @@ const AdminPanel = () => {
             <div>
               <h2>{activePlaylist.name}</h2>
               <p>Playlist details will be shown here.</p>
+              <button onClick={() => handleDeletePlaylist(playlists.indexOf(activePlaylist))}>Delete Playlist</button>
               {/* Add more components or details here as needed */}
             </div>
           )}

@@ -28,8 +28,10 @@ const PlaylistPanel = () => {
     }
   
     const lastPlaylist = savedPlaylists[savedPlaylists.length - 1];
-    const match = lastPlaylist.name.match(/\d+/);
+    const lastPlaylistName = lastPlaylist && lastPlaylist.name ? lastPlaylist.name : '';
+    const match = lastPlaylistName.match(/\d+/);
     const lastPlaylistId = match ? parseInt(match[0], 10) : 0;
+
   
     return `Playlist#${lastPlaylistId + 1}`;
   };
@@ -277,7 +279,7 @@ const PlaylistPanel = () => {
         />
         <input
           type="file"
-          accept=".mp3"
+          accept=".mp3, .wav"
           multiple
           onChange={handleFileChange}
           className="file-input"
@@ -360,6 +362,7 @@ const PlaylistPanel = () => {
             value={selectedPlaylistId}
             onChange={(e) => setSelectedPlaylistId(e.target.value)}
           >
+            <option value="" disabled>Choose one of the three</option>
             {generatedPlaylists.slice(0, 3).map((playlist, index) => (
               <option key={index} value={index}> Playlist {index+1}</option>
             ))}

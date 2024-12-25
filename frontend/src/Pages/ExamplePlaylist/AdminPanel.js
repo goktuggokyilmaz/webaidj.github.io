@@ -72,11 +72,15 @@ const AdminPanel = () => {
 
               {isLibraryExpanded && (
                 <ul className="library-playlist-list">
-                  {playlists.map((playlist, index) => (
-                    <li key={index} onClick={() => handleContentChange('view-playlist', playlist)}>
-                      {playlist.name}
-                    </li>
-                  ))}
+                  {playlists && playlists.length > 0 ? (
+                    playlists.map((playlist, index) => (
+                      <li key={index} onClick={() => handleContentChange('view-playlist', playlist)}>
+                        {playlist.name}
+                      </li>
+                    ))
+                  ) : (
+                    <li>No playlists created</li>
+                  )}
                 </ul>
               )}
             </li>
@@ -96,7 +100,15 @@ const AdminPanel = () => {
           {selectedContent === 'view-playlist' && activePlaylist && (
             <div>
               <h2>{activePlaylist.name}</h2>
-              <p>Playlist details will be shown here.</p>
+              <ul>
+                {activePlaylist.songs && activePlaylist.songs.length > 0 ? (
+                  activePlaylist.songs.map((song, index) => (
+                    <li key={index}>{song}</li>
+                  ))
+                ) : (
+                  <li>No songs available in this playlist</li>
+                )}
+              </ul>
               <button onClick={() => handleDeletePlaylist(playlists.indexOf(activePlaylist))}>Delete Playlist</button>
               {/* Add more components or details here as needed */}
             </div>
